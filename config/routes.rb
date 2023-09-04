@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  resources :departments
-  resources :courses
+  resources :departments do
+    resources :courses
+    resources :faculties
+  end
   resources :students
-  resources :faculties
   resources :enrollments
   # end
 end

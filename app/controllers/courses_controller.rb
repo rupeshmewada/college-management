@@ -2,29 +2,34 @@ class CoursesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    puts "before dep"
     @department = Department.find(params[:department_id])
-    puts "after dep"
-    @courses = @department.course
+    @courses = @department.courses.all
     render json: @courses
   end
 
   def show
-    @course = Course.find(params[:id])
+    @department = Department.find(params[:department_id])
+    @course = @department.courses.find(params[:id])
     render json: @course
   end
 
   def create
-    @course = Course.new(course_params)
+    # debugger
+    puts "before dep"
+    @department = Department.find(params[:department_id])
+    puts "in dep"
+    @course = @department.courses.new(course_params)
+    puts "after dep"
     if @course.save
       render json: @course, status: :created
     else
-      render json: @course.errors
+      render json: @course.errors 
     end
   end
 
   def update
-    @course = Course.find(params[:id])
+    @department = Department.find(params[:department_id])
+    @course = @department.courses.find(params[:id])
     if @course.update(course_params)
       render json: @course
     else
