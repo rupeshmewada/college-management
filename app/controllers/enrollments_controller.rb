@@ -22,9 +22,13 @@ class EnrollmentsController < ApplicationController
 
   def update
     @enrollment = Enrollment.find(params[:id])
+    puts "update action  "
+
     if @enrollment.update(enrollment_params)
+      puts "#{@enrollment.enr_date}"
       render json: @enrollment
     else
+      puts "#{@enrollment.enr_date}"
       render json: @enrollment.errors
     end
   end
